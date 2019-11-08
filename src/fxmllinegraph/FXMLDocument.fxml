@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmllinegraph.FXMLDocumentController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="58.0" layoutY="51.0" prefHeight="518.0" prefWidth="636.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                 <ComboBox fx:id="functionCombo" layoutX="15.0" layoutY="33.0" onAction="#loadStartingPoints" promptText="Functions">
+                     <items>
+                         <FXCollections fx:factory="observableArrayList">
+                             <String fx:value="x-x^2" />
+                             <String fx:value="ln(x+1)+1" />
+                             <String fx:value="e^x-3x" />
+                         </FXCollections>
+                     </items>
+                     <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </HBox.margin>
+                 </ComboBox>
+                  <Region />
+                  <ComboBox fx:id="startingPointCombo" promptText="Starting point">
+                     <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </HBox.margin></ComboBox>
+                  <Region />
+                  <ComboBox fx:id="decimalCombo" prefWidth="150.0" promptText="Decimals">
+                      <items>
+                         <FXCollections fx:factory="observableArrayList">
+                             <String fx:value="0.1" />
+                             <String fx:value="0.01" />
+                             <String fx:value="0.001" />
+                             <String fx:value="0.0001" />
+                             <String fx:value="0.00001" />
+                         </FXCollections>
+                     </items>
+                     <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </HBox.margin></ComboBox>
+                  <VBox>
+                     <children>
+                        <RadioButton fx:id="preDefined" mnemonicParsing="false" onAction="#preDefinedHandling" selected="true" text="Pre-Defined ">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="toggleUser" />
+                           </toggleGroup>
+                           <VBox.margin>
+                              <Insets bottom="8.0" top="8.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="userDefined" mnemonicParsing="false" onAction="#userDefinedHandling" text="User-Defined" toggleGroup="$toggleUser">
+                           <VBox.margin>
+                              <Insets bottom="8.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Starting point: " />
+                  <TextField fx:id="userStartingPoint" alignment="CENTER" promptText="0" />
+                  <Label text="Decimals: " />
+                  <TextField fx:id="userDecimal" alignment="CENTER" promptText="0.0001" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <CheckBox fx:id="newtonRapsion" mnemonicParsing="false" text="Newton-Raphson">
+                     <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </HBox.margin>
+                  </CheckBox>
+                  <Region />
+                  <CheckBox fx:id="secant" mnemonicParsing="false" text="Secant">
+                     <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </HBox.margin>
+                  </CheckBox>
+                  <Region />
+                  <CheckBox fx:id="Bisection" mnemonicParsing="false" text="Bisection">
+                     <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </HBox.margin>
+                  </CheckBox>
+                  <Region />
+                  <CheckBox fx:id="falsePosition" mnemonicParsing="false" text="False Position">
+                     <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </HBox.margin>
+                  </CheckBox>
+                  <Button fx:id="submit" mnemonicParsing="false" onAction="#submitHandling" text="Submit">
+                     <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER">
+               <children>
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER">
+                           <children>
+                              <RadioButton fx:id="funcView" mnemonicParsing="false" onAction="#funcGraph" selected="true" text="Function View">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="toogleView" />
+                                 </toggleGroup>
+                                 <HBox.margin>
+                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                 </HBox.margin>
+                              </RadioButton>
+                              <Region />
+                              <RadioButton fx:id="rootView" mnemonicParsing="false" onAction="#rootGraph" text="Root View" toggleGroup="$toogleView">
+                                 <HBox.margin>
+                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                 </HBox.margin></RadioButton>
+                           </children>
+                        </HBox>
+                        <LineChart fx:id="chart">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" fx:id="xAxis" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="yAxis" side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </children>
+                  </VBox>
+                  <TableView fx:id="resultTable" prefHeight="353.0" prefWidth="457.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
